@@ -18,6 +18,11 @@
 // webpack-isomorphic-tools: enables the compilation of server-side code with Webpack (similiar to the client-side)
 //
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+//  Plugins run before Presets.
+//  Plugin ordering is first to last.
+//  Preset ordering is reversed (last to first).
+//
 // "babel-plugin-webpack-loaders":
 //      (server-side usefulness only?)
 //      (does not support "json-loader")
@@ -89,13 +94,10 @@
 //      (one of the ways you can use Babel is through the require hook)
 //      (the require hook will bind itself to NODE's (server-side) require and automatically compile files on the fly)
 //      (all subsequent files required by NODE (server-side) with the extensions .es6, .es, .jsx and .js are transformed by Babel)
+//      (must include the "https://babeljs.io/docs/usage/polyfill/" separately when using features that require it, like generators ("babel-plugin-transform-regenerator"))
 //
 //  "babel-node":
 //      (transpiles individual files && not their respective require files)
-//
-//  Plugins run before Presets.
-//  Plugin ordering is first to last.
-//  Preset ordering is reversed (last to first).
 //
 //  "start-dev && "start-prod":
 //      ("index.js" loaded)
