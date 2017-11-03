@@ -1,0 +1,123 @@
+
+// Isomorphic:
+//      (able to render both on the client and the server)
+//
+// Isomorphic Benefits:
+//      1) search engines able to index your page
+//      2) faster to fetch pre-rendered content
+//      3) the benefit of not having to first fetch the application code and then fetch client content
+//
+// A Webpack application will usually crash if run directly in Node
+// It will crash because of how Webpack works: webpack it introduces its own layer above the standard javascript
+// That layer handles all require() calls and enables resolving them
+//
+// Bare Node does not have that capability to resolve require() calls
+//
+// webpack-isomorphic-tools: enables the resolution of require() calls in Node
+// webpack-isomorphic-tools: injects a require() layer above the standard javascript in Node
+// webpack-isomorphic-tools: enables the compilation of server-side code with Webpack (similiar to the client-side)
+//
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// ".babelrc":
+//      (plugin && preset instructions for Babel specific to application)
+//
+// ".babelrc plugins required for transforming es2015 to ES5 (specific to this application)":
+//
+//  "preset-react":
+//      (enables Babel 6 to support React (Strip flow types and transform JSX))
+//
+//  "preset-es2015":
+//      (enables Babel 6 to support ES2015)
+//      (setting module option "false" will not transform ES6 module syntax to another module type (i.e. CommonJS))
+//
+//  "preset-stage-0":
+//      (enables Babel 6 to support changes to the language that haven’t been approved to be part of ES6/ES2015)
+//
+//  "preset-flow":
+//      (Babel preset for all Flow plugins)
+//
+// "transform-decorators-legacy":
+//      (enables use of "@decorators")
+//      (Decorators make it possible to annotate and modify classes and properties at design time)
+//      (https://github.com/wycats/javascript-decorators)
+//
+// "transform-regenerator":
+//      (enables use of generator functions)
+//      (functions which can be paused in the middle, one or many times, and resumed later)
+//      (generator functions allow other code to run during paused periods)
+//      (https://davidwalsh.name/es6-generators)
+//
+//  "Redux-saga":
+//      (a redux middleware library designed to help handle side effects in a redux app)
+//      (It achieves this by leveraging Generators, which allow the writing of asynchronous code that looks synchronous)
+//      (the Saga pattern is way a to handle long running transactions with side effects or potential failures)
+//      (https://engineering.universe.com/what-is-redux-saga-c1252fc2f4d1)
+//
+// "transform-runtime":
+//      (helps avoid duplication of references to helpers and builtins in compiled output)
+//      (creates a sandboxed environment for your code)
+//
+// "transform-es2015-modules-commonjs":
+//      (transforms ES2015 modules to CommonJS modules)
+//      "es2015":
+//            ( export default function () {}; )
+//            ( import lib from './lib'; )
+//      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//      >>>>>>> transformed to >>>>>>
+//      >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//       "CommonJS":
+//            ( module.exports = function () {}; )
+//            ( var lib = require('./lib'); )
+//
+// "BABEL_DISABLE_CACHE=1":
+/       (By default Babel caches compiled files)
+//      (so any changes in files processed with loaders will not be visible at subsequent builds)
+// 
+// "passPerPreset": true 
+//      (if true, every preset is applied individually without considering the others (order matters))
+//      (https://babeljs.io/docs/plugins/#plugin-preset-ordering)
+//
+//  "presets":
+//      (preset ordering is reversed (applied last to first))
+//
+//  "babel-register": 
+//      (one of the ways you can use Babel is through the require hook)
+//      (the require hook will bind itself to NODE's (server-side) require and automatically compile files on the fly)
+//      (all subsequent files required by NODE (server-side) with the extensions .es6, .es, .jsx and .js are transformed by Babel)
+//
+//  "babel-node":
+//      (transpiles individual files && not their respective require files)
+//
+//  Plugins run before Presets.
+//  Plugin ordering is first to last.
+//  Preset ordering is reversed (last to first).
+//
+//  "start-dev && "start-prod":
+//      ("index.js" loaded)
+//      ("babel-register" used)
+//      (all subsequent files required by NODE (server-side) with the extensions .es6, .es, .jsx and .js are transformed by ("babel-register" ("babel")))
+//      (specified "plugins" in "index.js > babel-register" are applied to transformation)
+//      "NODE_ENV=development":
+//          (going through "./server/server" and initiating "webpack.config.dev.js" (see description below))
+//      "NODE_ENV=production":
+//          (going through "./build/server/server.bundle" >>> refer to "webpack.config.server.js" (see description below))
+//
+//  "webpack.config.prod.js":
+//      (only used in production)
+//      ("babel-loader" using ".babelrc" for all non-node-module ".jsx*$" files)
+//
+//  "webpack.config.server.js":
+//      (only used in production)
+//      ("babelrc === true")(it's not set to "false")
+//      ("babel-loader" using ".babelrc" for all non-node-module ".js$" files)
+//      ("babel-loader" using additional "query" config for all non-node-module ".js$" files)
+//
+//  "webpack.config.dev.js":
+//      (only used in development)
+//      (going through "./server/server" via "index.js")
+//      (initiated in "./server/server")
+//      ("babel-loader" using ".babelrc" for all non-node-module ".jsx*$" files)
+//      (incorporated into "webpackDevMiddleware" && "webpackHotMiddleware")
+
+

@@ -13,7 +13,7 @@ import serialize from 'serialize-javascript';
 import favicon from 'serve-favicon';
 import delay from 'express-delay';
 import webpack from 'webpack';
-import config from '../webpack/webpack.config.dev.js';
+import config from '../webpack.config.dev.js';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import dotenv from 'dotenv';
