@@ -18,6 +18,10 @@
 // webpack-isomorphic-tools: enables the compilation of server-side code with Webpack (similiar to the client-side)
 //
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// "babel-plugin-webpack-loaders":
+//      (server-side usefulness only?)
+//      (does not support "json-loader")
+//      (supports file-loader, url-loader, css-loader, style-loader, sass-loader, postcss-loader)
 //
 // ".babelrc":
 //      (plugin && preset instructions for Babel specific to application)

@@ -1,13 +1,1 @@
-{
-  "javascript": {
-    "app": "/app.b49e7aab378fe3f8ffd6.js",
-    "vendor": "/vendor.d683a55b70f0fe3bb245.js"
-  },
-  "styles": {},
-  "assets": {
-    "./node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg": "data:image/svg+xml;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICI4OTg4OTY4ODE0N2JkNzU3NWQ2MzI3MTYwZDY0ZTc2MC5zdmciOw=="
-  },
-  "webpack": {
-    "version": "3.6.0"
-  }
-}
+{"javascript":{"app":"/public/static/dist/client/app.9b0f0998a093c002dede.js","vendor":"/public/static/dist/client/vendor.af045299cd8fca23bc92.js"},"styles":{"app":"/public/static/dist/client/app.9b0f0998a093c002dede.css"},"assets":{"./node_modules/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg":"data:image/svg+xml;base64,bW9kdWxlLmV4cG9ydHMgPSBfX3dlYnBhY2tfcHVibGljX3BhdGhfXyArICI4OTg4OTY4ODE0N2JkNzU3NWQ2MzI3MTYwZDY0ZTc2MC5zdmciOw=="},"webpack":{"version":"3.6.0"}}
