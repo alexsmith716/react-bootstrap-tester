@@ -1,6 +1,6 @@
 
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-const webpackIsomorphicToolsConfig = require('./webpack/webpack.config.isomorphic');
+const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
 const projectBasePath = require('path').resolve(__dirname, './');
 
 console.log('>>>>>>> index.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ', process.env.BOOTSTRAPRC_LOCATION);
@@ -17,8 +17,13 @@ if (process.env.NODE_ENV === 'production') {
 
   require('babel-register')({
     plugins: [
+      ['css-modules-transform', {
+        preprocessCss: './loaders/sassLoader.js',
+        generateScopedName: '[name]__[local]__[hash:base64:5]',
+        extensions: ['.css', '.scss']
+      }],
       ['babel-plugin-webpack-loaders', {
-        config: './webpack/webpack.config.babel.js',
+        config: './webpack.config.babel.js',
         verbose: true
       }],
       'transform-es2015-modules-commonjs'

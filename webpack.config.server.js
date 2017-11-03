@@ -40,7 +40,7 @@ module.exports = {
               'transform-decorators-legacy',
               'babel-plugin-webpack-loaders',
               {
-                config: './webpack/webpack.config.babel.js',
+                config: './webpack.config.babel.js',
                 verbose: false
               }
             ]
