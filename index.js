@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 
   require('babel-register')({
     plugins: [
-      ['css-modules-transform', {
+      ['babel-plugin-css-modules-transform', {
         preprocessCss: './loaders/sassLoader.js',
         generateScopedName: '[name]__[local]__[hash:base64:5]',
         extensions: ['.css', '.scss']
@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
         config: './webpack.config.babel.js',
         verbose: true
       }],
-      'transform-es2015-modules-commonjs'
+      'babel-plugin-transform-es2015-modules-commonjs'
     ]
   });
 
