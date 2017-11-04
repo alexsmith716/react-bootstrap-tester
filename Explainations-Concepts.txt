@@ -8,14 +8,34 @@
 //      3) the benefit of not having to first fetch the application code and then fetch client content
 //
 // A Webpack application will usually crash if run directly in Node
+// Bare Node does not have that capability to resolve require() calls
 // It will crash because of how Webpack works: webpack it introduces its own layer above the standard javascript
 // That layer handles all require() calls and enables resolving them
+// "require" works on the client-side, because Webpack replaces all the require() calls with `[hash]` file naming feature
+// `[hash]` file naming feature makes browser asset caching work correctly
 //
-// Bare Node does not have that capability to resolve require() calls
+// webpack server-side rendering (hot-reloading) won't work with Node
+// because When Webpack url-loader finds `require()` calls, it copies the assest to the client build folder
+// and name it something like `9059f094ddb49c2b0fa6a254a6ebf2ad.png`
+// Webpack uses the `[hash]` file naming feature for assets on the client, which makes browser asset caching work correctly
+// that won't work on the server (hot-reloading)(server-side rendering)
+// it won't work on the server because Node.js only knows how to "require()" javascript modules
+// Node cannot work with webpack's `[hash]` file naming feature
+// so Node cannot reference those assets i.e. "<img src={ require('../image.png')}",
+// which was transformed to "9059f094ddb49c2b0fa6a254a6ebf2ad.png" in the bundle (i think)
+
+// To solve the webpack-to-[hash]-file-bundling-naming-feature,
+// "webpack-isomorphic-tools" enables the require() call to return the real path to the image on the disk
+// "webpack-isomorphic-tools" accomplishes this through "magic"
+// "webpack-isomorphic-tools" enables "require()" calls in Node
+// "webpack-isomorphic-tools" enables require() calls (on the server) to return anything (String's, JSON objects)
+// "webpack-isomorphic-tools" are required both for development and production
 //
 // webpack-isomorphic-tools: enables the resolution of require() calls in Node
 // webpack-isomorphic-tools: injects a require() layer above the standard javascript in Node
 // webpack-isomorphic-tools: enables the compilation of server-side code with Webpack (similiar to the client-side)
+//
+// For each asset type managed by "webpack-isomorphic-tools" there should be a corresponding in Webpack configuration
 //
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
@@ -26,7 +46,7 @@
 // "babel-plugin-webpack-loaders":
 //      (server-side usefulness only?)
 //      (does not support "json-loader")
-//      (supports file-loader, url-loader, css-loader, style-loader, sass-loader, postcss-loader)
+//      (supports "file-loader", "url-loader", "css-loader", "style-loader", "sass-loader", "postcss-loader")
 //
 // ".babelrc":
 //      (plugin && preset instructions for Babel specific to application)
