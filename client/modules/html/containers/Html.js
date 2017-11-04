@@ -38,10 +38,7 @@ const Html = (props: {
         <style dangerouslySetInnerHTML={{ __html: css }} />
       </head>
       <body>
-        <main
-          id="app"
-          dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }}
-        />
+        <main id="app" dangerouslySetInnerHTML={{ __html: `<div>${content}</div>` }} />
         <script dangerouslySetInnerHTML={{ __html: state }} />
         {Object.keys(assets.javascript)
           .filter(key => key.includes('app') || key.includes('vendor'))

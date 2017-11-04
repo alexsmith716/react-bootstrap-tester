@@ -1,6 +1,10 @@
 
 const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
+
+// this global variable will be used later in express middleware
 const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
+
+// this must be equal to your Webpack configuration "context" parameter
 const projectBasePath = require('path').resolve(__dirname, './');
 
 console.log('>>>>>>> index.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ', process.env.BOOTSTRAPRC_LOCATION);

@@ -1,3 +1,4 @@
+
 import JwtStrategy from 'passport-jwt/lib/strategy';
 import ExtractJwt from 'passport-jwt/lib/extract_jwt';
 import Users from '../models/Users';

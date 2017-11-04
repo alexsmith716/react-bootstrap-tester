@@ -103,7 +103,7 @@ app.use((req, res, next) => {
   console.log('REQ.headers ++++: ', req.headers);
   if(req.user) {
     console.log('REQ.user +++++: ', req.user);
-    console.log('REQ.user._id++: ', req.user._id);
+    console.log('REQ.user._id +: ', req.user._id);
   } else {
     console.log('REQ.user +++++: NO USER');
   };
@@ -142,6 +142,7 @@ mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
   }
 });
 
+// middleware to render your pages on the server included below (WebpackIsomorphicTools)
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
   const location = geoLookup(req);
@@ -150,6 +151,8 @@ app.use((req, res, next) => {
   const store = configureStore(memoryHistory, initialState);
   const history = syncHistoryWithStore(memoryHistory, store);
 
+  // clear require() cache if in development mode (WebpackIsomorphicTools)
+  // (makes asset hot reloading work) (WebpackIsomorphicTools)
   if (process.env.NODE_ENV === 'development') {
     global.webpackIsomorphicTools.refresh();
   }
@@ -189,6 +192,7 @@ app.use((req, res, next) => {
           const markup = <Html {...{ css, assets, state, content }} />;
           const html = `<!doctype html>${renderToStaticMarkup(markup)}`;
 
+          // render the page to string and send it to the browser as text/html
           res.send(html);
         })
         .catch(error => next(error));
