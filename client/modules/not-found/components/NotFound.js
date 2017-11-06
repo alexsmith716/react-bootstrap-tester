@@ -10,7 +10,7 @@ const NotFound = () => (
     <div>
       <NotFoundHeader>
         <NotFoundHeaderTop>404</NotFoundHeaderTop>
-        <NotFoundHeaderBottom>Page Not Found!!!</NotFoundHeaderBottom>
+        <NotFoundHeaderBottom>Page Not Found !!!!!!!!!!</NotFoundHeaderBottom>
       </NotFoundHeader>
       <StyledLink to="/">Home</StyledLink>
     </div>
