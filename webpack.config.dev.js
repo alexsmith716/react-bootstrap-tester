@@ -2,16 +2,29 @@ const webpack = require('webpack');
 const path = require('path');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const bootstrapEntryPoints = require('./webpack.bootstrap.config');
 require('dotenv').config();
 
 const PUBLIC_PATH = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/');
 
-console.log('>>>>>>> webpack.config.dev.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ', process.env.BOOTSTRAPRC_LOCATION);
-console.log('>>>>>>> webpack.config.dev.js > process.env.NODE_ENV <<<<<<<<: ', process.env.NODE_ENV);
-console.log('>>>>>>> webpack.config.dev.js > process.env.BABEL_DISABLE_CACHE <<<<<<<<: ', process.env.BABEL_DISABLE_CACHE);
-console.log('>>>>>>> webpack.config.dev.js > PUBLIC_PATH <<<<<<<<: ', PUBLIC_PATH);
+console.log(
+  '>>>>>>> webpack.config.dev.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ',
+  process.env.BOOTSTRAPRC_LOCATION
+);
+console.log(
+  '>>>>>>> webpack.config.dev.js > process.env.NODE_ENV <<<<<<<<: ',
+  process.env.NODE_ENV
+);
+console.log(
+  '>>>>>>> webpack.config.dev.js > process.env.BABEL_DISABLE_CACHE <<<<<<<<: ',
+  process.env.BABEL_DISABLE_CACHE
+);
+console.log(
+  '>>>>>>> webpack.config.dev.js > PUBLIC_PATH <<<<<<<<: ',
+  PUBLIC_PATH
+);
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -55,28 +68,52 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
-          'postcss-loader',
-        ],
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          }
+        ]
       },
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
-          'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]',
-          'postcss-loader',
-          'sass-loader',
-        ],
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
+              localIdentName: '[name]__[local]__[hash:base64:5]'
+            }
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: 'url-loader?limit=10000',
+        use: 'url-loader?limit=10000'
       },
       {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        use: 'file-loader',
-      },
+        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
+        use: 'file-loader'
+      }
     ]
   },
 
@@ -98,7 +135,7 @@ module.exports = {
         PUBLIC_PATH: JSON.stringify(PUBLIC_PATH),
         HOST: JSON.stringify(process.env.HOST),
         PROTOCOL: JSON.stringify(process.env.PROTOCOL),
-        PORT: JSON.stringify(process.env.PORT),
+        PORT: JSON.stringify(process.env.PORT)
         //STRIPE_PUBLIC: JSON.stringify(process.env.STRIPE_PUBLIC)
       },
       __CLIENT__: true,
@@ -106,7 +143,9 @@ module.exports = {
       __DEVELOPMENT__: true
     }),
 
-    new WebpackIsomorphicToolsPlugin(webpackIsomorphicToolsConfig).development(),
+    new WebpackIsomorphicToolsPlugin(
+      webpackIsomorphicToolsConfig
+    ).development(),
 
     new BundleAnalyzerPlugin({
       analyzerMode: 'server',
@@ -117,3 +156,29 @@ module.exports = {
     })
   ]
 };
+
+/*
+  {
+    test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+    use: 'file-loader',
+  },
+*/
+/*
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
+          'postcss-loader',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+    */

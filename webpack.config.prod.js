@@ -8,11 +8,16 @@ const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
 const path = require('path');
 const bootstrapEntryPoints = require('./webpack.bootstrap.config.js');
 
-console.log('>>>>>>> webpack.config.prod.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ', process.env.BOOTSTRAPRC_LOCATION);
-console.log('>>>>>>> webpack.config.prod.js > process.env.NODE_ENV <<<<<<<<: ', process.env.NODE_ENV);
+console.log(
+  '>>>>>>> webpack.config.prod.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ',
+  process.env.BOOTSTRAPRC_LOCATION
+);
+console.log(
+  '>>>>>>> webpack.config.prod.js > process.env.NODE_ENV <<<<<<<<: ',
+  process.env.NODE_ENV
+);
 
 module.exports = {
-
   devtool: 'hidden-source-map',
 
   entry: {
@@ -58,24 +63,51 @@ module.exports = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]' + '!postcss-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[name]__[local]__[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'postcss-loader'
+            }
+          ]
         })
       },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]' + '!postcss-loader' + '!sass-loader',
-        }),
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 2,
+                localIdentName: '[name]__[local]__[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'postcss-loader'
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ]
+        })
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: 'url-loader',
+        use: 'url-loader'
       },
       {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        use: 'file-loader',
-      },
+        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
+        use: 'file-loader'
+      }
     ]
   },
 
@@ -88,7 +120,7 @@ module.exports = {
         CLIENT: JSON.stringify(true)
       }
     }),
-    
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
@@ -128,4 +160,10 @@ module.exports = {
         warnings: false
       }
     }),
+*/
+/*
+  {
+    test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+    use: 'file-loader',
+  },
 */

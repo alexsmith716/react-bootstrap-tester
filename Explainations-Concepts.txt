@@ -7,9 +7,10 @@
 //      2) faster to fetch pre-rendered content
 //      3) the benefit of not having to first fetch the application code and then fetch client content
 //
-// A Webpack application will usually crash if run directly in Node
-// Bare Node does not have that capability to resolve require() calls
+// A Webpack application will crash if run directly in Node
+// Node does not have the capability to resolve require() calls
 // It will crash because of how Webpack works: webpack it introduces its own layer above the standard javascript
+// Node only knows how to require() javascript modules
 // That layer handles all require() calls and enables resolving them
 // "require" works on the client-side, because Webpack replaces all the require() calls with `[hash]` file naming feature
 // `[hash]` file naming feature makes browser asset caching work correctly
@@ -23,8 +24,9 @@
 // Node cannot work with webpack's `[hash]` file naming feature
 // so Node cannot reference those assets i.e. "<img src={ require('../image.png')}",
 // which was transformed to "9059f094ddb49c2b0fa6a254a6ebf2ad.png" in the bundle (i think)
-
+//
 // To solve the webpack-to-[hash]-file-bundling-naming-feature,
+// "webpack-isomorphic-tools" mimics webpack's require() when running app code on a Node server without Webpack
 // "webpack-isomorphic-tools" enables the require() call to return the real path to the image on the disk
 // "webpack-isomorphic-tools" accomplishes this through "magic"
 // "webpack-isomorphic-tools" enables "require()" calls in Node
@@ -38,6 +40,13 @@
 // For each asset type managed by "webpack-isomorphic-tools" there should be a corresponding in Webpack configuration
 //
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// "[HMR] The following modules couldn't be hot updated: (Full reload needed)
+// This is usually because the modules which have changed (and their parents) do not know how to hot reload themselves.
+// See https://webpack.js.org/concepts/hot-module-replacement/ 
+// for more details."
+//
+// Since webpack >= v2.0.0, importing of JSON files will work by default
 //
 //  Plugins run before Presets.
 //  Plugin ordering is first to last.
@@ -145,5 +154,8 @@
 //      (initiated in "./server/server")
 //      ("babel-loader" using ".babelrc" for all non-node-module ".jsx*$" files)
 //      (incorporated into "webpackDevMiddleware" && "webpackHotMiddleware")
+//
+//  "webpack - loading fonts":
+//  https://survivejs.com/webpack/loading/fonts/
 
 
