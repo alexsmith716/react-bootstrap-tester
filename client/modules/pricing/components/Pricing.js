@@ -7,6 +7,8 @@ import { media } from '../../../styles/breakpoints';
 import AuthOAuth from '../../auth/components/AuthOAuth';
 import AppHead from '../../app/components/AppHead';
 
+import style from './style.css';
+
 const Pricing = (props: { activeCompany: { _id: string } }) => {
   const { _id } = props.activeCompany;
   const link: string = _id
@@ -31,7 +33,7 @@ const Pricing = (props: { activeCompany: { _id: string } }) => {
             <StyledTermsLink>Privacy Policy</StyledTermsLink>.
           </TermsText>
         </PricingAmountContainer>
-        <PricingIncludesContainer>
+        <PricingIncludesContainer className={style.colorMarginStyle}>
           <PricingIncludesContent>
             <List>
               <ListItem>

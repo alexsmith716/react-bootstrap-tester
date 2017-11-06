@@ -1,4 +1,3 @@
-
 let cssModulesIdentName = '[name]__[local]__[hash:base64:5]';
 if (process.env.NODE_ENV === 'production') {
   cssModulesIdentName = '[hash:base64]';
@@ -6,8 +5,12 @@ if (process.env.NODE_ENV === 'production') {
 
 console.log('>>>>>>>> webpack.config.babel.js <<<<<<<<<<<<<<');
 
-module.exports = {
+// this concerns server only
+// what server-side code needs to be loaded and transformed (Babel) from es6 to es5
+// while keeping in mind what will be transpiled and available client-side by "webpack.config.dev.js"
+// "webpack.config.dev.js" already will have the client-side css/scss ready for the server-side sent "res.send" html
 
+module.exports = {
   output: {
     publicPath: '/',
     libraryTarget: 'commonjs2'
@@ -23,26 +26,24 @@ module.exports = {
       {
         test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
         loader: 'url-loader?limit=10000'
-      },
-      {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader',
-      },
-      {
-        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-        loader: 'file-loader',
-      },
+      }
     ]
   }
 };
 
 /*
+
+      {
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader',
+      },
+      {
+        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
+        loader: 'file-loader',
+      },
+
   {
-    test: /\.css$/,
-    loader: 'style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]' + '!postcss-loader',
-  },
-  {
-    test: /\.scss$/,
-    loader: 'style-loader!css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]' + '!postcss-loader' + '!sass-loader',
+    test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+    use: 'file-loader',
   },
 */

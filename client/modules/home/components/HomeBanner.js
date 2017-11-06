@@ -13,7 +13,7 @@ const HomeBanner = () => (
       <HomeBannerCard>
         <HomeBannerCardContent>
           <HomeBannerCardHeader>
-            Helping you find the right job
+            Helping you find the right job!!!!
           </HomeBannerCardHeader>
           <HomeBannerCardText>
             At Jobeir we want you to grow your career with the leading employers
