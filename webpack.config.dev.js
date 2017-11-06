@@ -32,7 +32,7 @@ module.exports = {
   entry: {
     app: [
       'eventsource-polyfill',
-      'webpack-hot-middleware/client',
+      'webpack-hot-middleware/client?reload=true',
       'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
       'babel-polyfill',
