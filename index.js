@@ -26,7 +26,9 @@ if (process.env.NODE_ENV === 'production') {
     require('./build/server/server.bundle');
   });
 } else {
-  // Babel-register: binds Babel to Node's require() to compile files on the fly
+  // "Babel-register" IS A WAY OF USING Babel
+  // So, "Babel-register" presets/plugins will take precedence over .babelrc
+  // "Babel-register": binds Babel to Node's require() to compile files on the fly
   // Hot-Loading handled here !!!
   // server-side processing of client requests
   // server-side es6 code must be compiled to client-friendly es5 code
@@ -37,6 +39,10 @@ if (process.env.NODE_ENV === 'production') {
   // BABEL_DISABLE_CACHE=1: Disables the cache (thus enabling Hot-Loading)
   // "babel-plugin-css-modules-transform": finds all `require`s for css module files and replaces them
   // with a hash where keys are class names and values are generated css class names
+
+  // the closest ".babelrc" to each file applies, and takes precedence over any options passed in "babel-register"
+  // By default "babel-register" will save to a json cache in your temporary directory
+  // "BABEL_DISABLE_CACHE=1" will disable cache
 
   require('babel-register')({
     plugins: [
