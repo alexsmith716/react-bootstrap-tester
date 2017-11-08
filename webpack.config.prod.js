@@ -18,7 +18,7 @@ console.log(
 );
 
 module.exports = {
-  devtool: 'hidden-source-map',
+  devtool: 'source-map',
 
   entry: {
     app: [

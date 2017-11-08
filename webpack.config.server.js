@@ -37,9 +37,11 @@ module.exports = {
 
   externals: [nodeExternals({ importType: 'commonjs' })],
 
-  // "Babel-loader" presets/plugins take precedence over .babelrc
-  // https://gist.github.com/rmoorman/94eeed830942758e218d92f15ce58d88
-  // Plugin ordering is first to last
+  // only with "babelrc: false" will "Babel-loader" take precendance over ".babelrc"
+  // below "babel-loader" has "babelrc: true"
+  // "babelrc: true": so any ".babelrc" presets && plugins will override listed "babel-loader" presets && plugins
+  // removed "babel-plugin-transform-decorators-legacy" since handled in ".babelrc"
+  // config below appears to be working
 
   module: {
     loaders: [
@@ -48,9 +50,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          babelrc: false,
-          cacheDirectory: false,
-          presets: ['react', ['es2015', { modules: false }], 'stage-0'],
           plugins: [
             [
               'babel-plugin-css-modules-transform',
@@ -60,7 +59,6 @@ module.exports = {
                 extensions: ['.css', '.scss']
               }
             ],
-            'babel-plugin-transform-decorators-legacy',
             [
               'babel-plugin-webpack-loaders',
               {
@@ -103,4 +101,25 @@ module.exports = {
           ]
         }
       }
+
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['react', ['es2015', { modules: false }], 'stage-0'],
+          plugins: [
+            ['babel-plugin-css-modules-transform', {
+              preprocessCss: './loaders/sassLoader.js',
+              generateScopedName: '[name]__[local]__[hash:base64:5]',
+              extensions: ['.css', '.scss']
+            }],
+            'babel-plugin-transform-decorators-legacy',
+            ['babel-plugin-webpack-loaders', {
+              config: './webpack.config.babel.js',
+              verbose: false
+            }]
+          ]
+        }
+      },
 */

@@ -37,7 +37,7 @@ const Pricing = (props: { activeCompany: { _id: string } }) => {
           <PricingIncludesContent>
             <List>
               <ListItem>
-                <ListHeader>Reach top tech talent</ListHeader>
+                <ListHeader>Reach top tech talent!!</ListHeader>
                 <ListSubheader>
                   Lorem Khaled Ipsum is a major key to success. They never said
                   winning was easy.

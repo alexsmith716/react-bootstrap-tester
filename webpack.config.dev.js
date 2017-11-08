@@ -27,7 +27,7 @@ console.log(
 );
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
 
   entry: {
     app: [
