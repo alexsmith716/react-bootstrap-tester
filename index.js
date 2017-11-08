@@ -40,9 +40,17 @@ if (process.env.NODE_ENV === 'production') {
   // "babel-plugin-css-modules-transform": finds all `require`s for css module files and replaces them
   // with a hash where keys are class names and values are generated css class names
 
-  // the closest ".babelrc" to each file applies, and takes precedence over any options passed in "babel-register"
-  // By default "babel-register" will save to a json cache in your temporary directory
   // "BABEL_DISABLE_CACHE=1" will disable cache
+
+  // Hot Reloading server-side here !!
+  // plugins listed in "babel-register" are handled seperate from ".babelrc", since:
+  // the closest ".babelrc" to each file applies, and takes precedence over any options passed in "babel-register"
+  // "babel-plugin-webpack-loaders" is "url-loadering" graphic files (.jpe?g, .gif, .png, .svg)
+  // removed "babel-plugin-transform-es2015-modules-commonjs" since handled in ".babelrc"
+
+  // ok, so the "babel-register" doc noting ".babelrc" is accurate
+  // i have known for a good week now the closest ".babelrc" to each file applies && takes precedence over "babel-register"
+  // it's finally working now!, don't ask me why it wasn't the last few days
 
   require('babel-register')({
     plugins: [
@@ -60,8 +68,7 @@ if (process.env.NODE_ENV === 'production') {
           config: './webpack.config.babel.js',
           verbose: true
         }
-      ],
-      'babel-plugin-transform-es2015-modules-commonjs'
+      ]
     ]
   });
 
