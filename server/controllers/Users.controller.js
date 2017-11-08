@@ -66,7 +66,7 @@ export const updateUser = async (req, res) => {
  */
 export const registerUser = async (req, res) => {
   if (!req.body.email || !req.body.password) {
-    throw Error(err.ERROR_INVALID_EMAIL_OR_PASSWORDs);
+    throw Error(err.ERROR_INVALID_EMAIL_OR_PASSWORD);
   }
 
   const user = await new Users(req.body).save();
