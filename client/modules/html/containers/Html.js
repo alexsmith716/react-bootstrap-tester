@@ -4,6 +4,8 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import serverConfig from '../../../../server/config/config';
 
+//import '../../../assets/styles/global.scss';
+
 // <script type="text/javascript" src="https://js.stripe.com/v3/" />
 // <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${serverConfig.google.MAPS_API_KEY}&libraries=places`}/>
 
@@ -13,7 +15,7 @@ const Html = (props: {
   state: {},
   content: string
 }) => {
-  const { css, assets, state, content } = props;
+  const { css, assets, state, content } = props;1
   const helmet = Helmet.rewind();
   const attrs = helmet.htmlAttributes.toComponent();
 

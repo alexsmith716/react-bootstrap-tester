@@ -6,16 +6,12 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
 const path = require('path');
-const bootstrapEntryPoints = require('./webpack.bootstrap.config.js');
 
-console.log(
-  '>>>>>>> webpack.config.prod.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ',
-  process.env.BOOTSTRAPRC_LOCATION
-);
-console.log(
-  '>>>>>>> webpack.config.prod.js > process.env.NODE_ENV <<<<<<<<: ',
-  process.env.NODE_ENV
-);
+console.log('>>>>>>> webpack.config.prod.js > process.env.NODE_ENV <<<<<<<<: ', process.env.NODE_ENV);
+
+// @import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
+// $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+// @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
 module.exports = {
   devtool: 'source-map',
@@ -25,8 +21,7 @@ module.exports = {
       'eventsource-polyfill',
       'babel-polyfill',
       'isomorphic-fetch',
-      'font-awesome-loader',
-      bootstrapEntryPoints.prod,
+      path.join(__dirname, './client/assets/styles/global.scss'),
       path.join(__dirname, './client/index.js')
     ],
     vendor: ['react', 'react-dom', 'draft-js', 'react-draft-wysiwyg']
@@ -60,6 +55,15 @@ module.exports = {
         loader: 'json-loader'
       },
       {
+        test: /(global\.css)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'resolve-url-loader',
+          'sass-loader?sourceMap',
+        ]
+      },
+      {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -72,9 +76,6 @@ module.exports = {
                 localIdentName: '[name]__[local]__[hash:base64:5]'
               }
             },
-            {
-              loader: 'postcss-loader'
-            }
           ]
         })
       },
@@ -90,9 +91,6 @@ module.exports = {
                 importLoaders: 2,
                 localIdentName: '[name]__[local]__[hash:base64:5]'
               }
-            },
-            {
-              loader: 'postcss-loader'
             },
             {
               loader: 'sass-loader'
@@ -155,13 +153,19 @@ module.exports = {
 };
 
 /*
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    }),
-*/
-/*
+  {
+    test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    use: 'url-loader'
+  },
+  {
+    test: /\.(ttf|eot)(\?[\s\S]+)?$/,
+    use: 'file-loader'
+  }
+  new webpack.optimize.UglifyJsPlugin({
+    compressor: {
+      warnings: false
+    }
+  }),
   {
     test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
     use: 'file-loader',
