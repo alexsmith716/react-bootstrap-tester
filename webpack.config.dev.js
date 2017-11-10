@@ -1,30 +1,16 @@
+
 const webpack = require('webpack');
 const path = require('path');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
-const bootstrapEntryPoints = require('./webpack.bootstrap.config');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 require('dotenv').config();
 
 const PUBLIC_PATH = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/');
 
-console.log(
-  '>>>>>>> webpack.config.dev.js > process.env.BOOTSTRAPRC_LOCATION <<<<<<<<: ',
-  process.env.BOOTSTRAPRC_LOCATION
-);
-console.log(
-  '>>>>>>> webpack.config.dev.js > process.env.NODE_ENV <<<<<<<<: ',
-  process.env.NODE_ENV
-);
-console.log(
-  '>>>>>>> webpack.config.dev.js > process.env.BABEL_DISABLE_CACHE <<<<<<<<: ',
-  process.env.BABEL_DISABLE_CACHE
-);
-console.log(
-  '>>>>>>> webpack.config.dev.js > PUBLIC_PATH <<<<<<<<: ',
-  PUBLIC_PATH
-);
+console.log('>>>>>>> webpack.config.dev.js > process.env.NODE_ENV <<<<<<<<: ', process.env.NODE_ENV);
+console.log('>>>>>>> webpack.config.dev.js > process.env.BABEL_DISABLE_CACHE <<<<<<<<: ', process.env.BABEL_DISABLE_CACHE);
+console.log('>>>>>>> webpack.config.dev.js > PUBLIC_PATH <<<<<<<<: ', PUBLIC_PATH);
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -37,7 +23,6 @@ module.exports = {
       'react-hot-loader/patch',
       'babel-polyfill',
       'isomorphic-fetch',
-      bootstrapEntryPoints.dev,
       path.join(__dirname, './client/index.js')
     ],
     vendor: ['react', 'react-dom', 'draft-js', 'react-draft-wysiwyg']
@@ -64,6 +49,17 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json-loader'
+      },
+      {
+        test: /(global\.css)$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          }
+        ]
       },
       {
         test: /\.css$/,

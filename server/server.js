@@ -205,7 +205,7 @@ app.use((req, res, next) => {
 // start app
 app.listen(process.env.PORT, error => {
   if (!error) {
-    console.log(`👋  Running on port ${process.env.PORT}`); // eslint-disable-line
+    console.log(`Running on port ${process.env.PORT}`); // eslint-disable-line
   }
 });
 
