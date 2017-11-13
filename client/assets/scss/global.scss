@@ -1,0 +1,21 @@
+
+$fa-font-path: "~font-awesome/fonts/";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "~font-awesome/scss/font-awesome.scss";
+@import "./app.scss";
+@import "./styles.scss";
+
+
+
+// font-awesome configuration:
+// ----------------------------------------------------------------------
+// $fa-font-path: "~font-awesome/fonts/";
+// @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// @import "~font-awesome/scss/font-awesome.scss";
+
+
+
+// glyphicon configuration:
+// ----------------------------------------------------------------------
+// $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+// @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";

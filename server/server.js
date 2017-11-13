@@ -144,6 +144,8 @@ mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
 
 // middleware to render your pages on the server included below (WebpackIsomorphicTools)
 // Server Side Rendering based on routes matched by React-router.
+
+
 app.use((req, res, next) => {
   const location = geoLookup(req);
   const memoryHistory = createHistory(req.url);
@@ -199,6 +201,7 @@ app.use((req, res, next) => {
     }
   );
 });
+
 
 // app.use(notFound);
 

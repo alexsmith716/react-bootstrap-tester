@@ -1,6 +1,20 @@
-.coloredText {
+.coloredText1 {
   color: #009900;
 }
+
+.coloredText2 {
+  color: #999000;
+}
+
+.fa2 {
+  transform: scale(1.5,1);
+}
+
+.fa1 {
+  font-size:60px;
+  color:red;
+}
+
 
 .colItems {
   margin: 70px 0;
@@ -12,7 +26,7 @@
     .text {
       display: block;
       font-size: 30px;
-      color: #333;
+      color: #990099;
     }
   }
 }

@@ -7,28 +7,61 @@ import HomeSearch from './HomeSearch';
 import css from './home.scss';
 import style from './style.css';
 
+//        <div className={`row ${css.colItems}`}>
+//          <div className={`col-md-4 ${css.colItem}`}>
+//            <span className="fa fa-headphones" />
+//            <span className={css.text}>It!</span>
+//          </div>
+//          <div className={`col-md-4 ${css.colItem}`}>
+//            <span className="fa fa-glass" />
+//            <span className={css.text}>Just!</span>
+//          </div>
+//          <div className={`col-md-4 ${css.colItem}`}>
+//            <span className="fa fa-thumbs-up" />
+//            <span className={css.text}>Works!</span>
+//          </div>
+//        </div>
+
+//        <div className={`row ${css.colItems}`}>
+//          <div className={`col-md-4 ${css.colItem}`}>
+//            <span className="glyphicon glyphicon-headphones" />
+//            <span className={css.text}>{'It.'}</span>
+//          </div>
+//          <div className={`col-md-4 ${css.colItem}`}>
+//            <span className="glyphicon glyphicon-glass" />
+//            <span className={css.text}>{'Just.'}</span>
+//          </div>
+//          <div className={`col-md-4 ${css.colItem}`}>
+//            <span className="glyphicon glyphicon-thumbs-up" />
+//            <span className={css.text}>{'Works.'}</span>
+//          </div>
+//        </div>
+
 const HomeHeader = (props: { showHeaderText: true }) => (
   <Header className={style.colorMarginStyle}>
     {props.showHeaderText && (
-      <HeaderText className={css.coloredText}>
+      <HeaderText>
         <hr />
         Find the best jobs<br />at the best tech companies
         <hr />
         <br />
+        
         <div className={`row ${css.colItems}`}>
           <div className={`col-md-4 ${css.colItem}`}>
-            <span className="glyphicon glyphicon-headphones" />
-            <span className={css.text}>{'It.'}</span>
+            <span className="fa fa-headphones" />
+            <span className={css.text}>It!!!</span>
           </div>
           <div className={`col-md-4 ${css.colItem}`}>
-            <span className="glyphicon glyphicon-glass" />
-            <span className={css.text}>{'Just.'}</span>
+            <span className="fa fa-glass" />
+            <span className={css.text}>Just!!</span>
           </div>
           <div className={`col-md-4 ${css.colItem}`}>
-            <span className="glyphicon glyphicon-thumbs-up" />
-            <span className={css.text}>{'Works.'}</span>
+            <span className="fa fa-thumbs-up" />
+            <span className={css.text}>Works!</span>
           </div>
         </div>
+
+
       </HeaderText>
     )}
     <HomeSearch />

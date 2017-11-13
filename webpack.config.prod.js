@@ -6,22 +6,18 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 
 console.log('>>>>>>> webpack.config.prod.js > process.env.NODE_ENV <<<<<<<<: ', process.env.NODE_ENV);
 
-// @import "~bootstrap-sass/assets/stylesheets/_bootstrap-sprockets.scss";
-// $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-// @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-
 module.exports = {
-  devtool: 'source-map',
 
   entry: {
     app: [
       'eventsource-polyfill',
       'babel-polyfill',
       'isomorphic-fetch',
-      path.join(__dirname, './client/assets/styles/global.scss'),
+      path.join(__dirname, './client/assets/scss/global.scss'),
       path.join(__dirname, './client/index.js')
     ],
     vendor: ['react', 'react-dom', 'draft-js', 'react-draft-wysiwyg']
@@ -47,21 +43,57 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000'
+        test: /\.scss$/,
+        include: [ path.resolve(__dirname, 'client/assets/scss') ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: false,
+              }
+            },
+            {
+              loader: 'resolve-url-loader'
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              }
+            }
+          ]
+        })
       },
       {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      {
-        test: /(global\.css)$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'resolve-url-loader',
-          'sass-loader?sourceMap',
-        ]
+        test: /\.scss$/,
+        exclude: [ path.resolve(__dirname, 'client/assets/scss') ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]__[local]__[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  autoprefixer({
+                      browsers: ['last 2 versions','IE >= 9','safari >= 8']
+                  }),
+                ],
+              },
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ]
+        })
       },
       {
         test: /\.css$/,
@@ -72,31 +104,25 @@ module.exports = {
               loader: 'css-loader',
               options: {
                 modules: true,
-                importLoaders: 1,
                 localIdentName: '[name]__[local]__[hash:base64:5]'
               }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  autoprefixer({
+                      browsers: ['last 2 versions','IE >= 9','safari >= 8']
+                  }),
+                ],
+              },
             },
           ]
         })
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                importLoaders: 2,
-                localIdentName: '[name]__[local]__[hash:base64:5]'
-              }
-            },
-            {
-              loader: 'sass-loader'
-            }
-          ]
-        })
+        test: /\.(jpe?g|gif|png|svg)$/i,
+        loader: 'url-loader?limit=10000'
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -105,6 +131,10 @@ module.exports = {
       {
         test: /\.(ttf|eot)(\?[\s\S]+)?$/,
         use: 'file-loader'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       }
     ]
   },
@@ -151,23 +181,3 @@ module.exports = {
     })
   ]
 };
-
-/*
-  {
-    test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    use: 'url-loader'
-  },
-  {
-    test: /\.(ttf|eot)(\?[\s\S]+)?$/,
-    use: 'file-loader'
-  }
-  new webpack.optimize.UglifyJsPlugin({
-    compressor: {
-      warnings: false
-    }
-  }),
-  {
-    test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-    use: 'file-loader',
-  },
-*/

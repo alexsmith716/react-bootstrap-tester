@@ -8,6 +8,7 @@ import AuthOAuth from '../../auth/components/AuthOAuth';
 import AppHead from '../../app/components/AppHead';
 
 import style from './style.css';
+// <PricingIncludesContainer className={style.colorMarginStyle}>
 
 const Pricing = (props: { activeCompany: { _id: string } }) => {
   const { _id } = props.activeCompany;
