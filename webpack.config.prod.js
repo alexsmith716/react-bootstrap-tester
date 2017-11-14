@@ -12,6 +12,8 @@ console.log('>>>>>>> webpack.config.prod.js > process.env.NODE_ENV <<<<<<<<: ', 
 
 module.exports = {
 
+  //devtool: 'source-map',
+
   entry: {
     app: [
       'eventsource-polyfill',

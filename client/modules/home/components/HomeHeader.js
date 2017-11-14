@@ -44,6 +44,9 @@ const HomeHeader = (props: { showHeaderText: true }) => (
         <hr />
         Find the best jobs<br />at the best tech companies
         <hr />
+        Bootstrap v4 with Font Awesome enabled!
+        <br />
+        <button className={`btn btn-primary mb1 bg-blue`}>Button</button>
         <br />
         
         <div className={`row ${css.colItems}`}>
@@ -60,7 +63,6 @@ const HomeHeader = (props: { showHeaderText: true }) => (
             <span className={css.text}>Works!</span>
           </div>
         </div>
-
 
       </HeaderText>
     )}
@@ -85,12 +87,13 @@ const Header = styled.div`
   `};
 `;
 
+//   font-family: ${props => props.theme.fontFamily.tiempos};
+
 const HeaderText = styled.h1`
   font-size: 54px;
   font-weight: 900;
   text-align: center;
   line-height: 1.2;
-  font-family: ${props => props.theme.fontFamily.tiempos};
   margin-bottom: 40px;
 
   ${media.desktop`
