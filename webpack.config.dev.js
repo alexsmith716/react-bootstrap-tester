@@ -5,6 +5,7 @@ const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 const webpackIsomorphicToolsConfig = require('./webpack.config.isomorphic');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 require('dotenv').config();
+const autoprefixer = require('autoprefixer');
 
 const PUBLIC_PATH = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/');
 
@@ -23,13 +24,14 @@ module.exports = {
       'react-hot-loader/patch',
       'babel-polyfill',
       'isomorphic-fetch',
+      path.join(__dirname, './client/assets/scss/global.scss'),
       path.join(__dirname, './client/index.js')
     ],
     vendor: ['react', 'react-dom', 'draft-js', 'react-draft-wysiwyg']
   },
 
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, './dist'),
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js',
     publicPath: process.env.NODE_ENV !== 'production' ? `/` : PUBLIC_PATH
@@ -43,21 +45,55 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      {
-        test: /(global\.css)$/,
+        test: /\.scss$/,
+        include: [ path.resolve(__dirname, 'client/assets/scss') ],
         use: [
           {
             loader: 'style-loader',
           },
           {
             loader: 'css-loader',
+            options: {
+              modules: false,
+            }
+          },
+          {
+            loader: 'resolve-url-loader',
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        exclude: [ path.resolve(__dirname, 'client/assets/scss') ],
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]__[hash:base64:5]',
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                autoprefixer({
+                    browsers: ['last 2 versions','IE >= 9','safari >= 8'],
+                }),
+              ],
+            },
+          },
+          {
+            loader: 'sass-loader',
           }
         ]
       },
@@ -65,50 +101,42 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'css-loader',
             options: {
               modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
+              localIdentName: '[name]__[local]__[hash:base64:5]',
             }
           },
           {
-            loader: 'postcss-loader'
-          }
+            loader: 'postcss-loader',
+            options: {
+              plugins: [
+                autoprefixer({
+                    browsers: ['last 2 versions','IE >= 9','safari >= 8'],
+                }),
+              ],
+            },
+          },
         ]
       },
       {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: 2,
-              localIdentName: '[name]__[local]__[hash:base64:5]'
-            }
-          },
-          {
-            loader: 'postcss-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
+        test: /\.(jpe?g|gif|png|svg)$/i,
+        loader: 'url-loader?limit=10000',
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: 'url-loader?limit=10000'
+        use: 'url-loader'
       },
       {
         test: /\.(ttf|eot)(\?[\s\S]+)?$/,
         use: 'file-loader'
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
       }
     ]
   },
@@ -152,29 +180,3 @@ module.exports = {
     })
   ]
 };
-
-/*
-  {
-    test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
-    use: 'file-loader',
-  },
-*/
-/*
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
-          'postcss-loader',
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]',
-          'postcss-loader',
-          'sass-loader',
-        ],
-      },
-    */
