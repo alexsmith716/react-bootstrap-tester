@@ -12,7 +12,7 @@ console.log('>>>>>>> webpack.config.prod.js > process.env.NODE_ENV <<<<<<<<: ', 
 
 module.exports = {
 
-  //devtool: 'source-map',
+  devtool: 'source-map',
 
   entry: {
     app: [
@@ -132,7 +132,7 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot)(\?[\s\S]+)?$/,
-        use: 'file-loader'
+        use: 'file-loader?name=OpenSans-Light.ttf'
       },
       {
         test: /\.json$/,
