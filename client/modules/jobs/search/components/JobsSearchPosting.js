@@ -123,7 +123,6 @@ const JobsSearchPostingTitle = styled.h2`
   font-size: 29px;
   font-weight: 900;
   margin-bottom: 10px;
-  font-family: ${props => props.theme.fontFamily.tiempos};
 
   ${media.tablet`
     font-size: 25px;

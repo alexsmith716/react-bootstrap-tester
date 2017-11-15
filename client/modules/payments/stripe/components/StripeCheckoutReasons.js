@@ -74,7 +74,6 @@ const ListItem = styled.ul`
 `;
 
 const ListHeader = styled.h3`
-  font-family: ${props => props.theme.fontFamily.tiempos};
   list-style: none;
   font-size: 32px;
   margin-bottom: 12px;

@@ -127,12 +127,8 @@ module.exports = {
         loader: 'url-loader?limit=10000',
       },
       {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: 'url-loader'
-      },
-      {
-        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
-        use: 'file-loader'
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
       },
       {
         test: /\.json$/,

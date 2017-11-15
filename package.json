@@ -11,7 +11,7 @@
     "bc": "yarn clear-client && NODE_ENV=production webpack --config ./webpack.config.prod.js",
     "bs": "yarn clear-server && NODE_ENV=production BABEL_DISABLE_CACHE=1 webpack --config ./webpack.config.server.js",
     "clear": "rimraf build",
-    "clear-client": "rimraf public/static/dist/client",
+    "clear-client": "rimraf public/static/dist/",
     "clear-server": "rimraf build/server",
     "slate": "rimraf node_modules && yarn install",
     "lint": "eslint client server",

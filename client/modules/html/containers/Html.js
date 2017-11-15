@@ -4,8 +4,6 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import serverConfig from '../../../../server/config/config';
 
-//import '../../../assets/global_styles/global.scss';
-
 // <script type="text/javascript" src="https://js.stripe.com/v3/" />
 // <script type="text/javascript" src={`https://maps.googleapis.com/maps/api/js?key=${serverConfig.google.MAPS_API_KEY}&libraries=places`}/>
 

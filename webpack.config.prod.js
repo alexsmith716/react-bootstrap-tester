@@ -124,19 +124,21 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000'
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+        },
       },
       {
-        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: 'url-loader'
-      },
-      {
-        test: /\.(ttf|eot)(\?[\s\S]+)?$/,
-        use: 'file-loader?name=OpenSans-Light.ttf'
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json-loader',
       }
     ]
   },
