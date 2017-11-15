@@ -24,7 +24,6 @@ const AuthHeaderHeader = styled.h1`
   text-align: center;
   font-size: 42px;
   font-weight: 800;
-  font-family: ${props => props.theme.fontFamily.tiempos};
 
   ${media.tablet`
     font-size: 30px;

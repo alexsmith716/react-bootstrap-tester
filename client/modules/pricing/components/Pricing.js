@@ -131,7 +131,6 @@ const ListItem = styled.ul`
 `;
 
 const ListHeader = styled.h3`
-  font-family: ${props => props.theme.fontFamily.tiempos};
   list-style: none;
   font-size: 38px;
   margin-bottom: 12px;
@@ -184,7 +183,6 @@ const PricingAmountContent = styled.div`
   position: relative;
   display: flex;
   align-self: flex-start;
-  font-family: ${props => props.theme.fontFamily.tiempos};
   margin-bottom: 30px;
 
   ${media.tablet`

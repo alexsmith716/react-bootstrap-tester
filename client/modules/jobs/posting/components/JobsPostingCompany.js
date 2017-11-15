@@ -64,7 +64,6 @@ const JobsPostingCompanyText = styled.p`
   margin-bottom: 20px;
   font-size: 20px;
   color: #2b2b2b;
-  font-family: ${props => props.theme.fontFamily.tiempos};
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 

@@ -86,7 +86,6 @@ const PricingHalfHeader = styled.h3`
   font-size: 48px;
   margin-bottom: 20px;
   font-weight: 900;
-  font-family: ${props => props.theme.fontFamily.tiempos};
 `;
 
 const PricingHalfText = styled.p`
