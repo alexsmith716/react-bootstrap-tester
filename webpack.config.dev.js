@@ -27,7 +27,7 @@ module.exports = {
       path.join(__dirname, './client/assets/scss/global.scss'),
       path.join(__dirname, './client/index.js')
     ],
-    vendor: ['react', 'react-dom', 'draft-js', 'react-draft-wysiwyg']
+    vendor: ['react', 'redux', 'react-dom']
   },
 
   output: {
@@ -123,17 +123,29 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpe?g|gif|png|svg)$/i,
-        loader: 'url-loader?limit=10000',
+        test: /\.(jpg|jpeg|gif|png|svg)$/i,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+          },
+        }],
       },
       {
         test: /\.(ttf|eot|woff|woff2)$/,
-        loader: 'file-loader',
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+          },
+        }],
       },
       {
         test: /\.json$/,
-        loader: 'json-loader',
-      }
+        use: [{
+          loader: 'json-loader',
+        }]
+      },
     ]
   },
 
