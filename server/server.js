@@ -30,8 +30,7 @@ const app = new express();
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
-  app.use(
-    webpackDevMiddleware(compiler, {
+  app.use(webpackDevMiddleware(compiler, {
       noInfo: true,
       publicPath: config.output.publicPath
     })
@@ -72,16 +71,13 @@ if (process.env.NODE_ENV === 'development') {
 app.use(compression());
 app.use('/public', express.static(path.join(__dirname, '../public')));
 app.use('/sw.js', express.static(path.join(__dirname, '../dist/sw.js')));
-app.use(
-  favicon(path.join(__dirname, '../public/static/favicon', 'favicon.ico'))
-);
+app.use(favicon(path.join(__dirname, '../public/static/favicon', 'favicon.ico')));
 app.use(morgan('dev'));
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(cookieParser());
 
-app.use(
-  cookieSession({
+app.use(cookieSession({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: true
@@ -122,10 +118,8 @@ app.use( '/api/v0', jwt({ secret: process.env.JWT }).unless({ path: routesArray 
 
 app.use(oAuthRoutes);
 
-// 
 app.use(errorHandler);
 
-// Set native promises as mongoose promise
 mongoose.Promise = global.Promise;
 const mongooseOptions = {
   useMongoClient: true,
@@ -137,7 +131,7 @@ const mongooseOptions = {
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URL, mongooseOptions, error => {
   if (error) {
-    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+    console.error('Please make sure Mongodb is installed and running!');
     throw error;
   }
 });
