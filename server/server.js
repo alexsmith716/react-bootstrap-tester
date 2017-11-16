@@ -184,6 +184,7 @@ app.use((req, res, next) => {
           const css = sheet.getStyleTags();
           const initialState = store.getState();
           const assets = global.webpackIsomorphicTools.assets();
+          console.log('>>>>>>>>>>>>>>>>>> SERVER > assets: ', assets)
           const state = `window.__INITIAL_STATE__ = ${serialize(initialState)}`;
           const markup = <Html {...{ css, assets, state, content }} />;
           const html = `<!doctype html>${renderToStaticMarkup(markup)}`;
