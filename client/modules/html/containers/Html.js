@@ -13,7 +13,7 @@ const Html = (props: {
   state: {},
   content: string
 }) => {
-  const { css, assets, state, content } = props;1
+  const { css, assets, state, content } = props;
   const helmet = Helmet.rewind();
   const attrs = helmet.htmlAttributes.toComponent();
 
